@@ -1,6 +1,6 @@
 import random
 class Action_Card:
-    def __init__(self, name, cost, add_cards=0, add_actions=0, discard_cards=0, buy_power=0, v_points=0):
+    def __init__(self, name, cost, add_cards=0, add_actions=0, discard_cards=0, buy_power=0, v_points=0 ,qty=10):
         self.name = name
         self.add_cards = add_cards
         self.add_actions = add_actions
@@ -8,13 +8,14 @@ class Action_Card:
         self.discard_cards = discard_cards
         self.v_points = v_points
         self.buy_power = buy_power
+        self.qty = qty
 
     def add_card(self,player,cards_to_hand):
-        for i in range(1,cards_to_hand)
+        for i in range(1,cards_to_hand):
             player.hand.append(player.deck[0])
             player.deck.pop(0)
 
-smithy = Action_Card('Smithy',3,4)
+smithy = Action_Card('smithy',3,4)
 
 
 class Coin_and_VP_card:
@@ -43,7 +44,7 @@ player1 = Player_deck("Aidan",3,[estate,estate,estate,copper,copper,copper,coppe
 player2 = Player_deck("Alex",3,[estate,estate,estate,copper,copper,copper,copper,copper,copper,copper],[],[])
 
 province_counter = 10
-buying_options = ["copper","silver","gold","estate","duchy","province"]
+buying_options = ["copper","silver","gold","estate","duchy","province","smithy"]
 
 def shuffle(player): #shuffles the players deck
     random.shuffle(player.deck)
@@ -69,14 +70,15 @@ def get_hand_info(player): # prints the cards in the players hand and returns th
     print(player.name+" has "+str(coins)+" coins")
     return coins
     
-
+def playing_actions(player):
+    pass
 
 def buying_choice(player,coins): 
     print(player.name,"'s Turn")
     print("Buying options are:")
     print(buying_options)
     choice=input("input your choice: ")
-    while (string_choice_to_class(choice)).cost > coins or choice!="copper" and choice!="silver" and choice!="gold" and choice!="estate" and choice!="duchy" and choice!="province":
+    while (string_choice_to_class(choice)).cost > coins or choice!="copper" and choice!="silver" and choice!="gold" and choice!="estate" and choice!="duchy" and choice!="province" and choice!="smithy":
         choice=input("please try again you misspelled something or you dont have enough coins : ")
     player.discard.append(string_choice_to_class(choice))
     decreasing_qty_when_buying(string_choice_to_class(choice))
@@ -101,6 +103,8 @@ def string_choice_to_class(choice_string):
         return estate
     elif choice_string ==duchy.name:
         return duchy
+    elif choice_string == smithy.name:
+        return smithy
     else:
         return province
 
@@ -122,6 +126,7 @@ while province.qty > 0:
 
     draw_five(player1)
     player1_coins=get_hand_info(player1)
+
     buying_choice(player1,player1_coins)
     hand_to_discard(player1)
     if len(player1.deck)<5:
