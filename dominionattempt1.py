@@ -1,5 +1,5 @@
 import random
-class Action_card:
+class Action_Card:
     def __init__(self, name, cost, add_cards=0, add_actions=0, discard_cards=0, buy_power=0, v_points=0):
         self.name = name
         self.add_cards = add_cards
@@ -9,11 +9,12 @@ class Action_card:
         self.v_points = v_points
         self.buy_power = buy_power
 
-    def add_card(self,cards_to_add_to_hand):
-        player.hand.append(player.deck[0])
-        player.deck.pop(0)
+    def add_card(self,player,cards_to_hand):
+        for i in range(1,cards_to_hand)
+            player.hand.append(player.deck[0])
+            player.deck.pop(0)
 
-smithy = Action_card('Smithy',3,4)
+smithy = Action_Card('Smithy',3,4)
 
 
 class Coin_and_VP_card:
@@ -66,7 +67,7 @@ def get_hand_info(player): # prints the cards in the players hand and returns th
         if i.name == "copper" or i.name =="silver" or i.name=="gold":
             coins+=i.value
     print(player.name+" has "+str(coins)+" coins")
-    return(coins)
+    return coins
     
 
 
@@ -91,17 +92,17 @@ def discard_to_deck(player):
 
 def string_choice_to_class(choice_string):
     if choice_string == copper.name:
-        return(copper)
+        return copper
     elif choice_string == silver.name:
-        return(silver)
+        return silver
     elif choice_string == gold.name:
-        return(gold)
+        return gold
     elif choice_string == estate.name:
-        return(estate)
+        return estate
     elif choice_string ==duchy.name:
-        return(duchy)
+        return duchy
     else:
-        return(province)
+        return province
 
 def decreasing_qty_when_buying(card):
     card.qty -=1
@@ -115,7 +116,7 @@ def score(player):
         if i.name == "estate" or i.name =="duchy" or i.name=="province":
             vps+=i.value
     print(player.name+" has "+str(vps)+" VPS")
-    return(vps)
+    return vps
 
 while province.qty > 0:
 
