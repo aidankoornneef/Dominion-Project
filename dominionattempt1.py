@@ -62,6 +62,7 @@ def draw_five(player): #puts five cards into the players hand STILL NEED DISCARD
         player.deck.pop(0)
         counter+=1
     #return(hand)
+
 def print_hand_info(player): # prints the cards in the players hand and returns the value of all the coins in the hand
     coins = 0
     action_cards = 0 
@@ -110,18 +111,20 @@ def score(player):
     return vps
 
 def check_for_actions(player):
+    action_options = []
     for i in player.hand:
         if type(i) == Action_Card:
-            action_played = input("Pick an actoin to play:")
-            return True
-        else:
-            print("No actions")
-            return False
+            action_options.append(i)
+            print(action_options[0].name)
+    for z in action_options:
+        print(action_options)
 
-def action_options(player):
-    pass
+
+#def action_options(player):
+    #pass
 
 def action_choice(player):
+    
     pass
 
 def player_turn(player):
