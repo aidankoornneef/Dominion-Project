@@ -15,8 +15,8 @@ class Action_Card:
             player.hand.append(player.deck[0])
             player.deck.pop(0)
 
-smithy = Action_Card('smithy',3,4)
-
+smithy = Action_Card('smithy',3)
+village = Action_Card('village',3,1,2)
 
 class Coin_and_VP_card:
     def __init__(self, name,value,cost,qty=10):
@@ -44,7 +44,7 @@ player1 = Player_deck("Aidan",3,[estate,estate,estate,copper,copper,copper,coppe
 player2 = Player_deck("Alex",3,[estate,estate,estate,copper,copper,copper,copper,copper,copper,copper],[],[])
 
 province_counter = 10
-buying_options = ["copper","silver","gold","estate","duchy","province","smithy"]
+buying_options = ["copper","silver","gold","estate","duchy","province","smithy","village"]
 
 def shuffle(player): #shuffles the players deck
     random.shuffle(player.deck)
@@ -78,10 +78,14 @@ def buying_choice(player,coins):
     print("Buying options are:")
     print(buying_options)
     choice=input("input your choice: ")
-    while (string_choice_to_class(choice)).cost > coins or choice!="copper" and choice!="silver" and choice!="gold" and choice!="estate" and choice!="duchy" and choice!="province" and choice!="smithy":
+    i = 0
+    while (eval(choice)).cost > coins or i == 1: 
+        for option in buying_options:
+            if eval(choice) == option:
+                i=1
         choice=input("please try again you misspelled something or you dont have enough coins : ")
-    player.discard.append(string_choice_to_class(choice))
-    decreasing_qty_when_buying(string_choice_to_class(choice))
+    player.discard.append(eval(choice))
+    decreasing_qty_when_buying(eval(choice))
     print("Your "+player.discard[0].name+" was added to your discard pile")
 
 def hand_to_discard(player):
@@ -91,22 +95,6 @@ def hand_to_discard(player):
 def discard_to_deck(player):
     player.deck = player.discard + player.deck
     player.discard.clear()
-
-def string_choice_to_class(choice_string):
-    if choice_string == copper.name:
-        return copper
-    elif choice_string == silver.name:
-        return silver
-    elif choice_string == gold.name:
-        return gold
-    elif choice_string == estate.name:
-        return estate
-    elif choice_string ==duchy.name:
-        return duchy
-    elif choice_string == smithy.name:
-        return smithy
-    else:
-        return province
 
 def decreasing_qty_when_buying(card):
     card.qty -=1
