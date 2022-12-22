@@ -33,12 +33,14 @@ duchy = Coin_and_VP_card('duchy',3,5)
 province = Coin_and_VP_card('province',6,8,1)
 
 class Player_deck:
-    def __init__(self, name,VP,deck,hand,discard):
+    def __init__(self, name,VP,deck,hand,discard,actions=1,buys=1):
         self.name =name
         self.VP = VP
         self.deck = deck
         self.hand = hand
         self.discard = discard
+        self.actions = actions
+        self.actions = buys
 
 player1 = Player_deck("Aidan",3,[estate,estate,estate,copper,copper,copper,copper,copper,copper,copper],[],[])
 player2 = Player_deck("Alex",3,[estate,estate,estate,copper,copper,copper,copper,copper,copper,copper],[],[])
@@ -60,19 +62,18 @@ def draw_five(player): #puts five cards into the players hand STILL NEED DISCARD
         player.deck.pop(0)
         counter+=1
     #return(hand)
-
-def get_hand_info(player): # prints the cards in the players hand and returns the value of all the coins in the hand
+def print_hand_info(player): # prints the cards in the players hand and returns the value of all the coins in the hand
     coins = 0
+    action_cards = 0 
     for i in player.hand:
         print(i.name)
         if i.name == "copper" or i.name =="silver" or i.name=="gold":
             coins+=i.value
+        if type(i) == Action_Card:
+            action_cards+=1
     print(player.name+" has "+str(coins)+" coins")
-    return coins
+    return coins 
     
-def playing_actions(player):
-    pass
-
 def buying_choice(player,coins): 
     print(player.name,"'s Turn")
     print("Buying options are:")
@@ -110,16 +111,25 @@ def score(player):
     print(player.name+" has "+str(vps)+" VPS")
     return vps
 
+def action_options(player):
+    pass
+
+def action_choice(player):
+    pass
+
+def player_turn(player):
+    pass
+
+# THIS IS THE GAME LOOP
 while province.qty > 0:
-
     draw_five(player1)
-    player1_coins=get_hand_info(player1)
-
+    player1_coins=print_hand_info(player1)
     buying_choice(player1,player1_coins)
     hand_to_discard(player1)
     if len(player1.deck)<5:
         discard_to_deck(player1)
 
+# END OF GAME INFO
 print("GAME OVER")
 score_player1=score(player1)
 score_player2=score(player2)
