@@ -69,10 +69,8 @@ def print_hand_info(player): # prints the cards in the players hand and returns 
         print(i.name)
         if i.name == "copper" or i.name =="silver" or i.name=="gold":
             coins+=i.value
-        if type(i) == Action_Card:
-            action_cards+=1
     print(player.name+" has "+str(coins)+" coins")
-    return coins 
+    return coins
     
 def buying_choice(player,coins): 
     print(player.name,"'s Turn")
@@ -111,6 +109,15 @@ def score(player):
     print(player.name+" has "+str(vps)+" VPS")
     return vps
 
+def check_for_actions(player):
+    for i in player.hand:
+        if type(i) == Action_Card:
+            action_played = input("Pick an actoin to play:")
+            return True
+        else:
+            print("No actions")
+            return False
+
 def action_options(player):
     pass
 
@@ -124,6 +131,8 @@ def player_turn(player):
 while province.qty > 0:
     draw_five(player1)
     player1_coins=print_hand_info(player1)
+    if check_for_actions(player1):
+        action_choice(player1)
     buying_choice(player1,player1_coins)
     hand_to_discard(player1)
     if len(player1.deck)<5:
