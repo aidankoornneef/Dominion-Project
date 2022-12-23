@@ -72,18 +72,32 @@ def print_hand_info(player): # prints the cards in the players hand and returns 
             coins+=i.value
     print(player.name+" has "+str(coins)+" coins")
     return coins
+
+def spell_check_buying(spelling):
+    i = 1
+    word_to_check = spelling
     
+    while i == 1:
+        for option in buying_options:
+            if word_to_check == option:
+                return word_to_check
+        word_to_check=input("please try again you misspelled something: ")
+
+     
 def buying_choice(player,coins): 
     print(player.name,"'s Turn")
     print("Buying options are:")
     print(buying_options)
-    choice=input("input your choice: ")
-    i = 0
-    while (eval(choice)).cost > coins or i == 1: 
-        for option in buying_options:
-            if eval(choice) == option:
-                i=1
-        choice=input("please try again you misspelled something or you dont have enough coins : ")
+    choice = input("input your choice: ")
+    choice = spell_check_buying(choice)
+    i = 1
+    while i == 1:
+        if eval(choice).cost > coins:
+            print("that is too expensive")
+            choice = input("input your choice: ")
+            spell_check_buying(choice)
+        else:
+            i = 0 
     player.discard.append(eval(choice))
     decreasing_qty_when_buying(eval(choice))
     print("Your "+player.discard[0].name+" was added to your discard pile")
@@ -111,6 +125,7 @@ def score(player):
     return vps
 
 def check_for_actions(player):
+    actions_per_turn = 1
     action_options = []
     for i in player.hand:
         if type(i) == Action_Card:
@@ -118,13 +133,17 @@ def check_for_actions(player):
             #print(action_options[0].name)
     
     if len(action_options)>0:
-        yesorno = input("would you like to use an action")
+        yesorno = input("would you like to use an action? [yes/no]: ")
         if yesorno == "yes":
             for z in range(0,len(action_options)):
-                print(str(z) + "Aciton:" + action_options[z].name)
-            action_choice = input("which action number would you like to use: ")
-            return action_choice
-
+                print("Aciton:" + action_options[z].name)
+            action_choice = input("which action would you like to use: ")
+            i = 1
+            while i == 1:
+                for choice in action_choice:
+                    if eval(action_choice) == choice:
+                        i=0
+                choice=input("please try again you misspelled something: ")
 
 
 
