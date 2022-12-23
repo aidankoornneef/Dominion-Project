@@ -115,9 +115,17 @@ def check_for_actions(player):
     for i in player.hand:
         if type(i) == Action_Card:
             action_options.append(i)
-            print(action_options[0].name)
-    for z in action_options:
-        print(action_options)
+            #print(action_options[0].name)
+    
+    if len(action_options)>0:
+        yesorno = input("would you like to use an action")
+        if yesorno == "yes":
+            for z in range(0,len(action_options)):
+                print(str(z) + "Aciton:" + action_options[z].name)
+            action_choice = input("which action number would you like to use: ")
+            return action_choice
+
+
 
 
 #def action_options(player):
